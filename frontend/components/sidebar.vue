@@ -8,10 +8,10 @@
       <v-list two-line>
           <template v-for="(note, index) in $store.getters.getAllNotes">
             <v-list-tile
-              :key="note.title"
+              :key="note.index"
               avatar
               ripple
-              @click="$store.commit('setCurrentNoteIndex', index)"
+              @click="changeCurrentNote(index)"
             >
               <v-list-tile-content>
                 <v-list-tile-sub-title class="text--primary">{{ note.title }}</v-list-tile-sub-title>
@@ -31,6 +31,12 @@
 <script>
  export default {
     props: ['state'],
+    methods: {
+      changeCurrentNote(index) {
+        this.$store.commit('setCurrentNoteIndex', index);
+        this.state.drawer = false;
+      }
+    }
   }
 </script>
 
