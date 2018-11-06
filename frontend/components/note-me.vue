@@ -4,10 +4,10 @@
             <v-layout>
                 <v-card width="100%" heigth="100%">
                     <v-card-title primary-title>
-                        <h2><input type="text" v-model="note.title" placeholder="Note Title"></h2>
+                        <h2><input type="text" v-model.lazy="title" placeholder="Note Title"></h2>
                     </v-card-title>
                     <v-card-text>
-                        <textarea v-model="note.body"></textarea>
+                        <textarea v-model.lazy="body" placeholder="Type your thoughts here..."></textarea>
                     </v-card-text>
                 </v-card>
             </v-layout>
@@ -19,12 +19,27 @@
 export default {
     data() {
         return {
-            note: {
-                title: 'Note Title',
-                body: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit sint, nesciunt deserunt alias rem, delectus molestiae officia expedita minus id eveniet, recusandae accusantium sapiente voluptatem. Deleniti eos rerum pariatur voluptas ratione at amet quos eveniet cupiditate dolore. Vitae at beatae iusto consequatur! LaudanLorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit sint, nesciunt deserunt alias rem, delectus molestiae officia expedita minus id eveniet, recusandae accusantium sapiente voluptatem. Deleniti eos rerum pariatur voluptas ratione at amet quos eveniet cupiditate dolore. Vitae at beatae iusto consequatur! LaudanLorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit sint, nesciunt deserunt alias rem, delectus molestiae officia expedita minus id eveniet, recusandae accusantium sapiente voluptatem. Deleniti eos rerum pariatur voluptas ratione at amet quos eveniet cupiditate dolore. Vitae at beatae iusto consequatur! LaudanLorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit sint, nesciunt deserunt alias rem, delectus molestiae officia expedita minus id eveniet, recusandae accusantium sapiente voluptatem. Deleniti eos rerum pariatur voluptas ratione at amet quos eveniet cupiditate dolore. Vitae at beatae iusto consequatur! LaudanLorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit sint, nesciunt deserunt alias rem, delectus molestiae officia expedita minus id eveniet, recusandae accusantium sapiente voluptatem. Deleniti eos rerum pariatur voluptas ratione at amet quos eveniet cupiditate dolore. Vitae at beatae iusto consequatur! LaudanLorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit sint, nesciunt deserunt alias rem, delectus molestiae officia expedita minus id eveniet, recusandae accusantium sapiente voluptatem. Deleniti eos rerum pariatur voluptas ratione at amet quos eveniet cupiditate dolore. Vitae at beatae iusto consequatur! LaudanLorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit sint, nesciunt deserunt alias rem, delectus molestiae officia expedita minus id eveniet, recusandae accusantium sapiente voluptatem. Deleniti eos rerum pariatur voluptas ratione at amet quos eveniet cupiditate dolore. Vitae at beatae iusto consequatur! LaudanLorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit sint, nesciunt deserunt alias rem, delectus molestiae officia expedita minus id eveniet, recusandae accusantium sapiente voluptatem. Deleniti eos rerum pariatur voluptas ratione at amet quos eveniet cupiditate dolore. Vitae at beatae iusto consequatur! LaudanLorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit sint, nesciunt deserunt alias rem, delectus molestiae officia expedita minus id eveniet, recusandae accusantium sapiente voluptatem. Deleniti eos rerum pariatur voluptas ratione at amet quos eveniet cupiditate dolore. Vitae at beatae iusto consequatur! LaudanLorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit sint, nesciunt deserunt alias rem, delectus molestiae officia expedita minus id eveniet, recusandae accusantium sapiente voluptatem. Deleniti eos rerum pariatur voluptas ratione at amet quos eveniet cupiditate dolore. Vitae at beatae iusto consequatur! LaudanLorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit sint, nesciunt deserunt alias rem, delectus molestiae officia expedita minus id eveniet, recusandae accusantium sapiente voluptatem. Deleniti eos rerum pariatur voluptas ratione at amet quos eveniet cupiditate dolore. Vitae at beatae iusto consequatur! LaudanLorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit sint, nesciunt deserunt alias rem, delectus molestiae officia expedita minus id eveniet, recusandae accusantium sapiente voluptatem. Deleniti eos rerum pariatur voluptas ratione at amet quos eveniet cupiditate dolore. Vitae at beatae iusto consequatur! Laudan"
+            notes: this.$store.getters.getAllNotes,
+        }
+    },
+    computed: {
+        title: {
+            get() {
+                return this.$store.getters.getCurrentNoteTitle;
+            },
+            set(value) {
+                this.$store.commit('setCurrentNoteTitle', value);
+            }
+        },
+        body: {
+            get() {
+                return this.$store.getters.getCurrentNoteBody;
+            },
+            set(value) {
+                this.$store.commit('setCurrentNoteBody', value);
             }
         }
-    }
+    },
 }
 </script>
 
