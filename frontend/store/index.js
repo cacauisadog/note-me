@@ -50,7 +50,18 @@ const createStore = () => {
             setCurrentNoteBody: (state, body) => {
                 state.notes[state.currentNoteIndex].body = body;
                 console.log('body changed');
-            }
+            },
+            addNewNote: state => {
+                state.notes.push(
+                    {
+                        title: "New note",
+                        body: ""
+                    }
+                )
+            },
+            deleteCurrentNote: state => {
+                state.notes.splice(state.currentNoteIndex, 1);
+            },  
         }
     });
 };
