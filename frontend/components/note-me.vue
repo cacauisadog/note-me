@@ -1,7 +1,7 @@
 <template>
     <v-content>
         <v-container fluid fill-height>
-            <v-layout>
+            <v-layout v-if="notes.length > 0">
                 <v-card width="100%" heigth="100%">
                     <v-card-title primary-title>
                         <h2><input type="text" v-model.lazy="title" placeholder="Note Title"></h2>
@@ -10,6 +10,14 @@
                         <textarea v-model.lazy="body" placeholder="Type your thoughts here..."></textarea>
                     </v-card-text>
                 </v-card>
+            </v-layout>
+
+            <v-layout v-else 
+                justify-center 
+                align-center
+                @click="addNewNote"
+            >
+                <span class="display-1">Click to add a new note</span>
             </v-layout>
         </v-container>
     </v-content>
@@ -40,6 +48,12 @@ export default {
             }
         }
     },
+    methods: {
+        addNewNote() {
+        this.$store.commit('addNewNote');
+        console.log("new note added via note-me")   
+      },
+    }
 }
 </script>
 
@@ -55,5 +69,11 @@ export default {
     }
     h2 {
         width: 100%;
+    }
+    span {
+        cursor: pointer;
+    }
+    .v-card__text {
+        height: 80%;
     }
 </style>
