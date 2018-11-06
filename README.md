@@ -14,10 +14,8 @@ A basic note taking app made with Vue.js, Nuxt and Vuetify on the front and Djan
 For now, you can only change the display between the dummy notes and alter their title and body. The changes will be reflected on the sidebar and will persist until you refresh the page.
 
 ## TODO
-- add "new note" button;
-- add "delete note" button;
-
-After this, the "dummy" frontend will be finished. Then it will be time to connect the frontend to the backend and turn this into an actually useful app by changing all the dummy notes to be calls to the API:
+The dummy frontend is finished! Of course, there's still A LOT to improve, but it works.
+Now to connect to the backend and turn this into an actually useful app by changing all the dummy notes to be calls to the API:
 - GET all notes from the database;
 - PUT edited notes;
 - make "new note" button make a POST;
