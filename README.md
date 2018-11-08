@@ -1,22 +1,27 @@
 # Note Me
-A basic note taking app made with Vue.js, Nuxt and Vuetify on the front and Django on the back.
+A basic note taking app made with Vue.js, Nuxt and Vuetify on the front and Django with PostgreSQL on the back.
 
-**At the moment, only the frontend works.**
+## Prerequisites:
+- you must have a local instance of postgres running on your machine;
+- you must have Django installed on your machine (use a virtualenv to avoid messing your everyday python env);
+- you must alter the Django configs to connect to your postgres database;
 
-## Instructions to run the frontend as it is:
+## Instructions to run the app as it is:
 - clone this repository;
+- `cd` into the *backend* folder;
+- `python manage.py runserver` to serve the Django backend;
 - `cd` into the *frontend* folder;
 - `npm install` to handle dependencies;
 - `npm run dev` to serve a local server (by default, on port 3000);
 - visit http://localhost:3000 on your browser and have fun.
 
 ## What you can do
-For now, you can only change the display between the dummy notes and alter their title and body. The changes will be reflected on the sidebar and will persist until you refresh the page.
+**Add new** notes, **edit** notes' title and body and **delete** notes. All changes are commited to the database and are kept through page refreshes.
 
 ## TODO
-The dummy frontend is finished! Of course, there's still A LOT to improve, but it works.
-Now to connect to the backend and turn this into an actually useful app by changing all the dummy notes to be calls to the API:
-- GET all notes from the database;
-- PUT edited notes;
-- make "new note" button make a POST;
-- make "delete note" button make a DELETE;
+The basic app is finished. Neither the code nor the UI are pretty, but it works.
+- add frontend validation;
+- add backend validation;
+- add note ordering by title or by body;
+- overhaul the UI;
+- refactorate code along the way.
