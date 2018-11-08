@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
@@ -37,6 +39,17 @@ export default {
             },
             set(value) {
                 this.$store.commit('setCurrentNoteTitle', value);
+
+                const currentIndex = this.$store.state.currentNoteIndex;
+                axios.put(`http://localhost:8000/api/note/${this.$store.state.notes[currentIndex].id}/`, {
+                  ...this.$store.state.notes[currentIndex]
+                })
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
             }
         },
         body: {
@@ -45,13 +58,33 @@ export default {
             },
             set(value) {
                 this.$store.commit('setCurrentNoteBody', value);
+
+                const currentIndex = this.$store.state.currentNoteIndex;
+                axios.put(`http://localhost:8000/api/note/${this.$store.state.notes[currentIndex].id}/`, {
+                  ...this.$store.state.notes[currentIndex]
+                })
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(error => {
+                    console.log(error);
+                }); 
             }
         }
     },
     methods: {
         addNewNote() {
-        this.$store.commit('addNewNote');
-        console.log("new note added via note-me")   
+            axios.post('http://localhost:8000/api/note/', {
+                title: 'New Note',
+                body: 'New body'
+            })
+            .then(response => {
+                this.$store.commit('addNewNote', response.data.id);
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
       },
     }
 }

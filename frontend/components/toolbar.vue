@@ -4,11 +4,7 @@
       <v-toolbar-title>Note Me</v-toolbar-title>
 
       <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>save_alt</v-icon>
-      </v-btn>
-
+      
       <v-btn 
         icon
         @click="addNewNote"
@@ -26,20 +22,35 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-// TODO: usar mapMutations ao invés de declarar método por método
+import axios from 'axios';
 
 export default {
     props: ['state'],
     methods: {
       addNewNote() {
-        this.$store.commit('addNewNote');
-        console.log("new note added via toolbar")
+            axios.post('http://localhost:8000/api/note/', {
+                title: 'New Note',
+                body: 'New body'
+            })
+            .then(response => {
+                this.$store.commit('addNewNote', response.data.id);
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
       },
       deleteCurrentNote() {
-        this.$store.commit('deleteCurrentNote');
-        console.log(`note on index ${this.$store.state.currentNoteIndex} was deleted`)
-        this.$store.commit('setCurrentNoteIndex', 0);
+        if (this.$store.getters.getAllNotes.length > 0) {
+          const currentIndex = this.$store.state.currentNoteIndex;
+          axios.delete(`http://localhost:8000/api/note/${this.$store.state.notes[currentIndex].id}/`)
+            .then(response => {
+              console.log(response);
+              this.$store.commit('deleteCurrentNote');
+              console.log(`note on index ${this.$store.state.currentNoteIndex} was deleted`)
+              this.$store.commit('setCurrentNoteIndex', 0);
+            })
+        }
       }
     }
 }
