@@ -38,9 +38,12 @@ export default {
                 return this.$store.getters.getCurrentNoteTitle;
             },
             set(value) {
-                this.$store.commit('setCurrentNoteTitle', value);
-
                 const currentIndex = this.$store.state.currentNoteIndex;
+
+                // if title is empty, give it "Note ${note.id}" value before submitting
+                if (!value) {value = `Note ${this.$store.state.notes[currentIndex].id}`};
+
+                this.$store.commit('setCurrentNoteTitle', value);
                 axios.put(`http://localhost:8000/api/note/${this.$store.state.notes[currentIndex].id}/`, {
                   ...this.$store.state.notes[currentIndex]
                 })
