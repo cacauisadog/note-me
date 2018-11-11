@@ -49,7 +49,6 @@
     props: ['state'],
     methods: {
       changeCurrentNote(index) {
-        const currentNoteId = this.$store.notes[index].id
         this.$store.commit('setCurrentNoteIndex', index);
         // this.state.drawer = false;
       }
