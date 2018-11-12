@@ -20,8 +20,8 @@ A basic note taking app made with Vue.js, Nuxt and Vuetify on the front and Djan
 
 ## TODO
 The basic app is finished. Neither the code nor the UI are pretty, but it works.
-- add frontend validation;
-- add backend validation;
-- add note ordering by title or by body;
+**DONE** - add frontend validation;
+**DONE** - add backend validation;
+**DONE** - add note ordering by title or by body;
 - overhaul the UI;
 - refactorate code along the way.
