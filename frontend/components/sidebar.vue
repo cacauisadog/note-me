@@ -18,7 +18,7 @@
               :key="note.index"
               avatar
               ripple
-              @click="changeCurrentNote(index)"
+              @click="changeCurrentNote(note)"
             >
               <v-list-tile-content>
                 <v-list-tile-sub-title class="text--primary">{{ note.title }}</v-list-tile-sub-title>
@@ -48,8 +48,8 @@
     },
     props: ['state'],
     methods: {
-      changeCurrentNote(index) {
-        this.$store.commit('setCurrentNoteIndex', index);
+      changeCurrentNote(note) {
+        this.$store.commit('setCurrentNote', note);
         // this.state.drawer = false;
       }
     },

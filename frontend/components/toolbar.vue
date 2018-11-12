@@ -41,14 +41,13 @@ export default {
             });
       },
       deleteCurrentNote() {
-        if (this.$store.getters.getAllNotes.length > 0) {
-          const currentIndex = this.$store.state.currentNoteIndex;
-          axios.delete(`http://localhost:8000/api/note/${this.$store.state.notes[currentIndex].id}/`)
+        if (this.$store.state.currentNote != null) {
+          axios.delete(`http://localhost:8000/api/note/${this.$store.state.currentNote.id}/`)
             .then(response => {
               console.log(response);
               this.$store.commit('deleteCurrentNote');
-              console.log(`note on index ${this.$store.state.currentNoteIndex} was deleted`)
-              this.$store.commit('setCurrentNoteIndex', 0);
+              console.log(`note with id ${this.$store.state.currentNote.id} was deleted`)
+              this.$store.commit('setCurrentNote', this.$store.getters.getAllNotes[0]);
             })
         }
       }

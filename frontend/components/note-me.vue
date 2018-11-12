@@ -1,7 +1,15 @@
 <template>
     <v-content>
         <v-container fluid fill-height>
-            <v-layout v-if="notes.length > 0">
+            <v-layout v-if="$store.state.currentNote == null"
+                justify-center 
+                align-center
+                @click="addNewNote"
+            >
+                <span class="display-1">Select a note or click here to add a new note</span>
+            </v-layout>
+
+            <v-layout v-else>
                 <v-card width="100%" heigth="100%">
                     <v-card-title primary-title>
                         <h2><input type="text" v-model.lazy="title" placeholder="Note Title"></h2>
@@ -10,14 +18,6 @@
                         <textarea v-model.lazy="body" placeholder="Type your thoughts here..."></textarea>
                     </v-card-text>
                 </v-card>
-            </v-layout>
-
-            <v-layout v-else 
-                justify-center 
-                align-center
-                @click="addNewNote"
-            >
-                <span class="display-1">Click to add a new note</span>
             </v-layout>
         </v-container>
     </v-content>
@@ -38,14 +38,12 @@ export default {
                 return this.$store.getters.getCurrentNoteTitle;
             },
             set(value) {
-                const currentIndex = this.$store.state.currentNoteIndex;
-
                 // if title is empty, give it "Note ${note.id}" value before submitting
-                if (!value) {value = `Note ${this.$store.state.notes[currentIndex].id}`};
+                if (!value) {value = `Note ${this.$store.state.currentNote.id}`};
 
                 this.$store.commit('setCurrentNoteTitle', value);
-                axios.put(`http://localhost:8000/api/note/${this.$store.state.notes[currentIndex].id}/`, {
-                  ...this.$store.state.notes[currentIndex]
+                axios.put(`http://localhost:8000/api/note/${this.$store.state.currentNote.id}/`, {
+                  ...this.$store.state.currentNote
                 })
                 .then(response => {
                     console.log(response);
@@ -62,9 +60,8 @@ export default {
             set(value) {
                 this.$store.commit('setCurrentNoteBody', value);
 
-                const currentIndex = this.$store.state.currentNoteIndex;
-                axios.put(`http://localhost:8000/api/note/${this.$store.state.notes[currentIndex].id}/`, {
-                  ...this.$store.state.notes[currentIndex]
+                axios.put(`http://localhost:8000/api/note/${this.$store.state.currentNote.id}/`, {
+                  ...this.$store.state.currentNote
                 })
                 .then(response => {
                     console.log(response);

@@ -4,30 +4,30 @@ const createStore = () => {
     return new Vuex.Store({
         state: () => ({
             notes: null,
-            currentNoteIndex: 0,
+            currentNote: null
         }),
         getters: {
             getAllNotes: state => {
                 return state.notes;
             },
             getCurrentNoteTitle: state => {
-                return state.notes[state.currentNoteIndex].title;
+                return state.currentNote.title;
             },
             getCurrentNoteBody: state => {
-                return state.notes[state.currentNoteIndex].body;
+                return state.currentNote.body;
             }
         },
         mutations: {
-            setCurrentNoteIndex: (state, index) => {
-                state.currentNoteIndex = index;
-                console.log('new index: ' + index);
+            setCurrentNote: (state, note) => {
+                state.currentNote = note;
+                console.log(state.currentNote);
             },
             setCurrentNoteTitle: (state, title) => {
-                state.notes[state.currentNoteIndex].title = title;
+                state.currentNote.title = title;
                 console.log('title changed');
             },
             setCurrentNoteBody: (state, body) => {
-                state.notes[state.currentNoteIndex].body = body;
+                state.currentNote.body = body;
                 console.log('body changed');
             },
             addNewNote: (state, id) => {
@@ -37,10 +37,14 @@ const createStore = () => {
                         body: "New body",
                         id
                     }
-                )
+                );
+                state.currentNote = state.notes.find(note => {
+                    return note.id == id
+                });
             },
             deleteCurrentNote: state => {
-                state.notes.splice(state.currentNoteIndex, 1);
+                const currentNoteIndex = state.notes.indexOf(state.currentNote);
+                state.notes.splice(currentNoteIndex, 1);
             },  
         }
     });
